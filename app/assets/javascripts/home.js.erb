@@ -1,0 +1,32 @@
+var map;
+
+function initMap() {
+
+  var mapOptions = {
+      zoom: 15,
+      mapTypeId: google.maps.MapTypeId.ROADMAP,
+      disableDefaultUI: true
+  };
+
+  map = new google.maps.Map(document.getElementById('map'), mapOptions);
+
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      var pos = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      };
+
+      var marker = new google.maps.Marker({
+          position: pos,
+          map: map,
+          icon: "<%= asset_path('marker.png') %>"
+        });
+
+      map.setCenter(pos);
+
+    }, function(e) {
+      console.log(e);
+    });
+  }
+}

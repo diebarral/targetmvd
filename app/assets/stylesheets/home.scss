@@ -14,17 +14,28 @@
 
 .welcome-info {
 	grid-column: 1 / 3;
-  	grid-row: 1;
-  	text-align: center;
-  	padding: 78px;
+	grid-row: 1;
+	text-align: center;
+	padding: 78px;
 }
 
 .welcome-image {
-    grid-column: 3;
-  	grid-row: 1;
-    height: 100%;
-    overflow: hidden;
-    background: #30BCF7;
+  grid-column: 3;
+	grid-row: 1;
+  height: 100%;
+  overflow: hidden;
+  background: #30BCF7;
+}
+
+.google-map {
+	height: 100%;
+	grid-column: 2 / 4;
+	grid-row: 1;
+}
+
+.index-dynamic-container {
+	grid-column: 3;
+  grid-row: 1;
 }
 
 .smilies {
@@ -177,6 +188,3 @@
 	background-color: transparent;
 	color: #000000;
 }
-
-
-
