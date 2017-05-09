@@ -1,0 +1,17 @@
+<div id="sign-in-container" class="sign-in-container">
+	<%= image_tag("smilies.png", :class => "smilies") %>
+
+	<h2 class="target-mvd"> TARGET MVD </h2>
+
+	<h3 class="welcome-info-header"> Find people near you & Connect </h3>
+
+	<p class="welcome-info-text">
+	Create a  target  wherever on the map, specify your interest: Travel, Dating, Music, etc and start conecting with others who share your interest.
+	</p>
+
+	<%= render "devise/sessions/form" %>	
+</div>
+
+<div id="sign-up-container" style="display: none">
+	<%= render "devise/registrations/form" %>	
+</div>

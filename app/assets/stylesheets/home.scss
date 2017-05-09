@@ -1,0 +1,141 @@
+// Place all the styles related to the Home controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.welcome-container {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	grid-gap: 0px;
+	grid-auto-rows: minmax(100px, auto);
+	height: 100vh;
+	padding: 0;
+	margin: 0;
+}
+
+.welcome-info {
+	grid-column: 1 / 3;
+  	grid-row: 1;
+  	text-align: center;
+  	padding: 78px;
+}
+
+.welcome-image {
+    grid-column: 3;
+  	grid-row: 1;
+    height: 100%;
+    overflow: hidden;
+    background: #30BCF7;
+}
+
+.smilies {
+	width: 133px;
+	height: 78px;	
+}
+
+.target-mvd {
+	font-family: OpenSans, sans-serif;
+	font-size: 20px;
+	font-weight: bold;
+	font-style: normal;
+	font-stretch: normal;
+	line-height: normal;
+	letter-spacing: 3px;
+	color: #000000;
+}
+
+.target-mvd .text-style-1 {
+	letter-spacing: normal;
+}
+
+.welcome-info-header {
+	font-family: OpenSans, sans-serif;
+	font-size: 18px;
+	font-weight: 600;
+	line-height: 1.78;
+	color: #212121;
+}
+
+.welcome-info-text {
+	width: 321px;
+	height: 78px;
+	font-family: OpenSans, sans-serif;
+	font-size: 14px;
+	line-height: 1.86;
+	color: #000000;
+	display: inline-block;
+}
+
+.right {
+	width: 683px;
+	height: 768px;
+	object-fit: contain;
+}
+
+.sign-in-container input {
+	height: 37px;
+	border: solid 0.5px #000000;
+}
+
+.field-label {
+	height: 15px;
+	font-family: OpenSans, sans-serif;
+	font-size: 11px;
+	font-weight: 600;
+	letter-spacing: 1.6px;
+	text-align: center;
+	color: #000000;
+	display: inline-block;
+}
+
+.field-input {
+	width: 180px;
+	height: 37px;
+	border: solid 0.5px #000000;
+}
+
+.submit-button {
+	width: 180px;
+	height: 37px;
+	background-color: #000000;
+	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.3);
+	font-family: OpenSans, sans-serif;
+	font-size: 11px;
+	font-weight: 600;
+	letter-spacing: 1.6px;
+	text-align: center;
+	color: #ffffff;
+	border: 0;
+	padding: 0;
+}
+
+.forgot-password-link {
+	width: 135.5px;
+	height: 15px;
+	font-family: OpenSans, sans-serif;
+	font-size: 11px;
+	font-weight: 600;
+	text-align: center;
+	color: #000000;
+	text-decoration: none;
+}
+
+.action-link {
+	text-decoration: none;	
+	font-family: OpenSans, sans-serif;
+	width: 102.3px;
+	height: 15px;
+	font-size: 11px;
+	font-weight: 600;
+	letter-spacing: 1.6px;
+	text-align: center;
+	color: #000000;
+}
+
+.line {
+	width: 121px;
+	height: 0.5px;
+	border: solid 0.5px #000000;
+}
+
+	
+	

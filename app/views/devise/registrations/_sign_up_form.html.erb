@@ -1,0 +1,37 @@
+<h2>SIGN UP</h2>
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <%= devise_error_messages! %>
+
+    <div class="field">
+    <%= f.label "NAME", :class => "field-label" %><br />
+    <%= f.text_field :name, autofocus: true, :class => "field-input" %>
+  </div>
+
+  <div class="field">
+    <%= f.label 'SELECT YOUR GENDER', :class => "field-label" %><br />
+    <%= f.select(:gender, ['Male', 'Female'], {}, { :class => 'field-input' }) %>
+  </div>
+
+  <div class="field">
+    <%= f.label "EMAIL", :class => "field-label" %><br />
+    <%= f.email_field :email, :class => "field-input" %>
+  </div>
+
+  <div class="field">
+    <%= f.label "PASSWORD", :class => "field-label" %>
+    <br />
+    <%= f.password_field :password, autocomplete: "off", :class => "field-input", :placeholder => 'MIN. 6 CHARACTERS LONG' %>
+  </div>
+
+  <div class="field">
+    <%= f.label "CONFIRM PASSWORD", :class => "field-label" %><br />
+    <%= f.password_field :password_confirmation, autocomplete: "off", :class => "field-input" %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "SIGN UP", :class => "submit-button" %>
+  </div>
+<% end %> 
+<hr class="line">
+<%= link_to "SIGN IN", load_sign_in_path, :remote => true, :class => "action-link"  %>

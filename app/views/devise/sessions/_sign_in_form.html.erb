@@ -1,0 +1,39 @@
+<%= image_tag("smilies.png", :class => "smilies") %>
+
+<h2 class="target-mvd"> TARGET MVD </h2>
+
+<h3 class="welcome-info-header"> Find people near you & Connect </h3>
+
+<p class="welcome-info-text">
+Create a  target  wherever on the map, specify your interest: Travel, Dating, Music, etc and start conecting with others who share your interest.
+</p>
+
+<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+  <div class="field">
+    <%= f.label :email, :class => "field-label" %><br />
+    <%= f.email_field :email, autofocus: true, :class => "field-input" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password, :class => "field-label" %><br />
+    <%= f.password_field :password, autocomplete: "off", :class => "field-input" %>
+  </div>
+
+  <% if devise_mapping.rememberable? -%>
+    <div class="field" style="display: none">
+      <%= f.check_box :remember_me %>
+      <%= f.label :remember_me %>
+    </div>
+  <% end -%>
+
+  <div class="actions">
+    <%= f.submit "SIGN IN", :class => "submit-button" %>
+  </div>
+<% end %>
+
+<%= link_to "Forgot your password?", new_password_path(resource_name), :class => 'forgot-password-link' %><br />
+<br />
+<br />
+<br />
+<hr class="line">
+<%= link_to "SIGN UP", load_sign_up_path, :remote => true, :class => "action-link"  %>
