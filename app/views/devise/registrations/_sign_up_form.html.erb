@@ -1,4 +1,4 @@
-<h2>SIGN UP</h2>
+<h2 class="target-mvd">SIGN UP</h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= devise_error_messages! %>
@@ -32,6 +32,6 @@
   <div class="actions">
     <%= f.submit "SIGN UP", :class => "submit-button" %>
   </div>
-<% end %> 
+<% end %>
 <hr class="line">
 <%= link_to "SIGN IN", load_sign_in_path, :remote => true, :class => "action-link"  %>
