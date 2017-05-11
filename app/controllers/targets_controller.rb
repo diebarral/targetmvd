@@ -1,5 +1,5 @@
 class TargetsController < ApplicationController
-  
+  before_action :authenticate_user!
   before_action :set_target, only: [:show, :edit, :update, :destroy]
 
   # GET /targets
@@ -18,6 +18,14 @@ class TargetsController < ApplicationController
     @target = Target.new
   end
 
+  def load_create_form
+    @target = Target.new
+    @topics = Topic.all
+
+    render json: { form: (render_to_string partial: 'form') }
+
+  end
+
   # GET /targets/1/edit
   def edit
   end
@@ -26,10 +34,11 @@ class TargetsController < ApplicationController
   # POST /targets.json
   def create
     @target = Target.new(target_params)
+    @target.user = current_user
 
     respond_to do |format|
       if @target.save
-        format.html { redirect_to @target, notice: 'Target was successfully created.' }
+        format.html { redirect_to home_index_path, notice: 'Target was successfully created.' }
         format.json { render :show, status: :created, location: @target }
       else
         format.html { render :new }
@@ -70,6 +79,6 @@ class TargetsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def target_params
-      params.fetch(:target, {})
+      params.fetch(:target, {}).permit(:radius, :title, :latitude, :longitude, :topic_id)
     end
 end

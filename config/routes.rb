@@ -1,15 +1,19 @@
 Rails.application.routes.draw do
 
-	root to: 'home#index'
-	get 'users/sign_in', to: 'home#welcome'
+  root to: 'home#index'
 
-	devise_for :users
+  devise_for :users
 
-	get 'home/welcome'
-	get 'home/index'
-	get 'home/load_sign_in', to: 'home#load_sign_in', as: 'load_sign_in'
-	get 'home/load_sign_up', to: 'home#load_sign_up', as: 'load_sign_up'
-	
-	# For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-	
+  resource :home do
+    member do
+      get 'load_sign_in', to: 'home#load_sign_in', as: 'load_sign_in'
+      get 'load_sign_up', to: 'home#load_sign_up', as: 'load_sign_up'
+    end
+  end
+
+  resource :targets do
+    member do
+      get 'load_create_form',  to: 'targets#load_create_form',as: 'load_create_form'
+    end
+  end
 end
