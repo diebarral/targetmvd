@@ -18,7 +18,7 @@ class TargetsController < ApplicationController
     @target = Target.new
   end
 
-  def load_create_target
+  def load_create_form
     @target = Target.new
     @topics = Topic.all
 

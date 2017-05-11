@@ -69,7 +69,7 @@ function initMap() {
 
     if(!existsCurrentTarget){
       existsCurrentTarget = true;
-      $.getJSON('/targets/load_create_target', function(data) {
+      $.getJSON('/targets/load_create_form', function(data) {
         $("#index-dynamic-container").html(data.form);
         placeTarget(e.latLng);
       });
