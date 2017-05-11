@@ -34,13 +34,22 @@
 }
 
 .index-dynamic-container {
-	grid-column: 3;
+	grid-column: 1;
 	grid-row: 1;
+	text-align: center;
+	padding: 78px;
+	overflow: auto;
 }
 
 .smilies {
 	width: 133px;
 	height: 78px;
+}
+
+.target-icon {
+	width: 64px;
+	height: 64px;
+	object-fit: contain;
 }
 
 .target-mvd {
@@ -99,7 +108,7 @@
 }
 
 .field-input {
-	width: 180px;
+	width: 257px;
 	height: 37px;
 	font-size: 14px;
 	border: solid 0.5px #000000;
@@ -110,7 +119,6 @@
 	font-size: 10px;
 	font-style: italic;
 }
-
 
 .submit-button {
 	width: 180px;
@@ -187,4 +195,34 @@
 .connect-with-facebook:hover {
 	background-color: transparent;
 	color: #000000;
+}
+
+.topic-table {
+	width: 257px;
+	height: 39px;
+	border: solid 0.5px #000000;
+	display: inline-table;
+}
+
+.topic-table tr {
+	border: solid 0.5px #000000;
+	border-right: 0;
+	border-left: 0;
+}
+
+.topic-table td {
+	width: 257px;
+	height: 39px;
+	text-align: left;
+	font-family: OpenSans, sans-serif;
+	font-size: 13px;
+	letter-spacing: 2px;
+	padding: 0;
+}
+
+.topic-icon {
+	width: 15px;
+	height: 15px;
+	object-fit: contain;
+	margin-right: 10px;
 }
