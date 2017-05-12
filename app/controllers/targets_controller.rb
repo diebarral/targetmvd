@@ -5,7 +5,7 @@ class TargetsController < ApplicationController
   # GET /targets
   # GET /targets.json
   def index
-    @targets = Target.all
+    @targets = current_user.targets
   end
 
   # GET /targets/1
@@ -23,7 +23,11 @@ class TargetsController < ApplicationController
     @topics = Topic.all
 
     render json: { form: (render_to_string partial: 'form') }
+  end
 
+  def list
+    targets = current_user.targets
+    render :json => targets
   end
 
   # GET /targets/1/edit
@@ -38,7 +42,7 @@ class TargetsController < ApplicationController
 
     respond_to do |format|
       if @target.save
-        format.html { redirect_to home_index_path, notice: 'Target was successfully created.' }
+        format.html { redirect_to index_home_path, notice: 'Target was successfully created.' }
         format.json { render :show, status: :created, location: @target }
       else
         format.html { render :new }
