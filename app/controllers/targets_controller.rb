@@ -1,6 +1,7 @@
 class TargetsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_target, only: [:show, :edit, :update, :destroy]
+  before_action :set_target, only: [:show, :edit, :destroy]
+  before_action :set_topics, only: [:edit, :load_create_form]
 
   # GET /targets
   # GET /targets.json
@@ -20,9 +21,8 @@ class TargetsController < ApplicationController
 
   def load_create_form
     @target = Target.new
-    @topics = Topic.all
 
-    render json: { form: (render_to_string partial: 'form') }
+    render json: { form: (render_to_string partial: 'create_form') }
   end
 
   def list
@@ -32,6 +32,7 @@ class TargetsController < ApplicationController
 
   # GET /targets/1/edit
   def edit
+    render json: { form: (render_to_string partial: 'edit_form', target: @target )}
   end
 
   # POST /targets
@@ -54,9 +55,12 @@ class TargetsController < ApplicationController
   # PATCH/PUT /targets/1
   # PATCH/PUT /targets/1.json
   def update
+    puts(params);
+    @target = Target.find(params[:target][:id])
+
     respond_to do |format|
       if @target.update(target_params)
-        format.html { redirect_to @target, notice: 'Target was successfully updated.' }
+        format.html { redirect_to index_home_path, notice: 'Target was successfully updated.' }
         format.json { render :show, status: :ok, location: @target }
       else
         format.html { render :edit }
@@ -79,6 +83,10 @@ class TargetsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_target
       @target = Target.find(params[:id])
+    end
+
+    def set_topics
+      @topics = Topic.all
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

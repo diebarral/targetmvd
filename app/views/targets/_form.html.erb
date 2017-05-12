@@ -1,39 +1,28 @@
-<%= image_tag("target_icon.png", :class => "target-icon") %>
-<h3 class="welcome-info-header">CREATE NEW TARGET</h3>
+<div class="field">
+  <%= form.label "Specify area length", :class => "field-label" %><br />
+  <%= form.text_field :radius, autofocus: true, :class => "field-input" %>
+</div>
 
-<%= form_for @target do |form| %>
+<div class="field">
+  <%= form.label "Target title", :class => "field-label" %><br />
+  <%= form.text_field :title, :class => "field-input" %>
+</div>
 
-  <div class="field">
-    <%= form.label "Specify area length", :class => "field-label" %><br />
-    <%= form.text_field :radius, autofocus: true, :class => "field-input" %>
-  </div>
+<%= form.hidden_field :latitude %>
+<%= form.hidden_field :longitude %>
+<%= form.hidden_field :topic_id %>
+<%= form.hidden_field :id %>
 
-  <div class="field">
-    <%= form.label "Target title", :class => "field-label" %><br />
-    <%= form.text_field :title, :class => "field-input" %>
-  </div>
-
-  <%= form.hidden_field :latitude %>
-  <%= form.hidden_field :longitude %>
-  <%= form.hidden_field :topic_id %>
-
-  <div class="field">
-    <%= form.label "Select a topic", :class => "field-label" %><br />
-    <table id="topic-table" class="topic-table">
-      <% @topics.each do |topic| %>
-        <tr topic-id=<%= topic.id %>>
-          <td>
-            <span style="float: left;"><i><%= image_tag("#{topic.id}.png", :class => "topic-icon")  %></i></span>
-            <%= topic.name %>
-          </td>
-        </tr>
-      <% end %>
-    </table>
-  </div>
-
-  <div class="actions">
-    <%= form.submit "SAVE TARGET", :class => "submit-button"  %>
-  </div>
-<% end %>
-<%= image_tag("smilies.png", :class => "smilies") %>
-
+<div class="field">
+  <%= form.label "Select a topic", :class => "field-label" %><br />
+  <table id="topic-table" class="topic-table">
+    <% @topics.each do |topic| %>
+      <tr topic-id=<%= topic.id %>>
+        <td>
+          <span style="float: left;"><i><%= image_tag("#{topic.id}.png", :class => "topic-icon")  %></i></span>
+          <%= topic.name %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+</div>
