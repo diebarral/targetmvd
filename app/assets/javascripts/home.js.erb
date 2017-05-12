@@ -35,6 +35,7 @@ $(document).ready(function(){
     $('#target_topic_id').val(topicId);
 
   });
+
 });
 
 function initMap() {
@@ -80,7 +81,7 @@ function loadUserTargets() {
   $.getJSON('/targets/list', function(targetsList) {
     jQuery.each(targetsList, function(index, target){
       var targetsCenter = new google.maps.LatLng(target.latitude, target.longitude);
-      drawCircleAt(targetsCenter, target.radius);
+      drawCircleAt(targetsCenter, target.radius, target.id);
     });
   });
 }
@@ -111,16 +112,16 @@ function newTarget(e) {
     existsCurrentTarget = true;
     $.getJSON('/targets/load_create_form', function(data) {
       $("#index-dynamic-container").html(data.form);
-      setCurrentTarget(drawCircleAt(e.latLng, defaultRadius));
+      setCurrentTarget(drawCircleAt(e.latLng, defaultRadius, 0));
     });
   }
   else {
     currentTarget.setMap(null);
-    setCurrentTarget(drawCircleAt(e.latLng, defaultRadius));
+    setCurrentTarget(drawCircleAt(e.latLng, defaultRadius, 0));
   }
 }
 
-function drawCircleAt(location, radius) {
+function drawCircleAt(location, radius, targetId) {
 
   var circle = new google.maps.Circle({
     strokeWeight: 0,
@@ -128,14 +129,29 @@ function drawCircleAt(location, radius) {
     fillOpacity: 0.7,
     map: map,
     center: location,
-    radius: radius
+    radius: radius,
+    targetId: targetId
   });
 
-  google.maps.event.addListener(circle, 'click', function(e) {
-    newTarget(e);
-  });
+  if(targetId != 0) {
+    google.maps.event.addListener(circle, 'click', function(e) {
+      editTarget(circle, targetId);
+    });
+  }
 
   return circle;
+}
+
+function editTarget(target, targetId) {
+
+  currentTarget = target;
+  $.getJSON('/targets/edit', { id: targetId }, function(data) {
+    $("#index-dynamic-container").html(data.form);
+  }).done(function(){
+    var topicId = $('#target_topic_id').val();
+    console.log('topic id: ' + topicId);
+    $('#topic-table tbody tr[topic-id=' + topicId + ']').addClass('selected');
+  });
 }
 
 function setCurrentTarget(t) {

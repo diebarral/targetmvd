@@ -1,0 +1,10 @@
+<%= image_tag("target_icon.png", :class => "target-icon") %>
+<h3 class="welcome-info-header">EDIT TARGET</h3>
+<%= form_for @target, url: targets_path do |form| %>
+
+  <%= render partial: 'form' , :locals => {:form => form } %>
+
+  <div class="actions">
+    <%= form.submit "SAVE CHANGES", :class => "submit-button"  %>
+  </div>
+<% end %>
