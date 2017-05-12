@@ -78,12 +78,10 @@ function initMap() {
 
 function loadUserTargets() {
   $.getJSON('/targets/list', function(targetsList) {
-    if(targetsList.length > 0) {
-      jQuery.each(targetsList, function(index, target){
-        var targetsCenter = new google.maps.LatLng(target.latitude, target.longitude);
-        drawCircleAt(targetsCenter, target.radius);
-      });
-    }
+    jQuery.each(targetsList, function(index, target){
+      var targetsCenter = new google.maps.LatLng(target.latitude, target.longitude);
+      drawCircleAt(targetsCenter, target.radius);
+    });
   });
 }
 
