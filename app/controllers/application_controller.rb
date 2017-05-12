@@ -10,15 +10,15 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource)
-  	home_index_path
+    index_home_path
   end
 
   def after_sign_out_path_for(resource)
-  	home_welcome_path
+    welcome_home_path
   end
 
   def after_sign_up_path_for(resource)
-    home_index_path
+    index_home_path
   end
 
 end

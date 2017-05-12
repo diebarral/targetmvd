@@ -1,6 +1,7 @@
 var map;
 var currentTarget;
 var existsCurrentTarget = false;
+var defaultRadius = 100;
 
 $(document).ready(function(){
 
@@ -16,6 +17,7 @@ $(document).ready(function(){
 
     if(newradius > 0 && newradius < 1000) {
       currentTarget.setRadius(newradius);
+      defaultRadius = newradius;
     } else {
       $('#target_radius').val('');
     }
@@ -29,10 +31,10 @@ $(document).ready(function(){
     $(this).addClass('selected');
 
     //Sets topic_id to hidden form input.
-    $('#target_topic_id').val($(this).attr('topic-id'));
+    var topicId = $(this).attr('topic-id');
+    $('#target_topic_id').val(topicId);
 
   });
-
 });
 
 function initMap() {
@@ -53,10 +55,10 @@ function initMap() {
       };
 
       var marker = new google.maps.Marker({
-          position: pos,
-          map: map,
-          icon: "<%= asset_path('marker.png') %>"
-        });
+        position: pos,
+        map: map,
+        icon: "<%= asset_path('marker.png') %>"
+      });
 
       map.setCenter(pos);
 
@@ -65,39 +67,22 @@ function initMap() {
     });
   }
 
-  map.addListener('click', function(e){
+  map.addListener('click', function(e) {
+    newTarget(e);
+  });
 
-    if(!existsCurrentTarget){
-      existsCurrentTarget = true;
-      $.getJSON('/targets/load_create_form', function(data) {
-        $("#index-dynamic-container").html(data.form);
-        placeTarget(e.latLng);
-      });
-    }
-    else {
-      currentTarget.setMap(null);
-      placeTarget(e.latLng)
-    }
+  google.maps.event.addListenerOnce(map, 'idle', function(){
+    loadUserTargets();
   });
 }
 
-function placeTarget(location) {
-
-  var defaultRadius = 100;
-
-  var target = new google.maps.Circle({
-    strokeWeight: 0,
-    fillColor: '#efc537',
-    fillOpacity: 0.7,
-    map: map,
-    center: location,
-    radius: defaultRadius
+function loadUserTargets() {
+  $.getJSON('/targets/list', function(targetsList) {
+    jQuery.each(targetsList, function(index, target){
+      var targetsCenter = new google.maps.LatLng(target.latitude, target.longitude);
+      drawCircleAt(targetsCenter, target.radius);
+    });
   });
-
-  currentTarget = target;
-  $('#target_latitude').val(location.lat());
-  $('#target_longitude').val(location.lng());
-  $('#target_radius').val(defaultRadius);
 }
 
 function validateNumericInput(e) {
@@ -121,5 +106,41 @@ function validateNumericInput(e) {
   }
 }
 
+function newTarget(e) {
+  if(!existsCurrentTarget){
+    existsCurrentTarget = true;
+    $.getJSON('/targets/load_create_form', function(data) {
+      $("#index-dynamic-container").html(data.form);
+      setCurrentTarget(drawCircleAt(e.latLng, defaultRadius));
+    });
+  }
+  else {
+    currentTarget.setMap(null);
+    setCurrentTarget(drawCircleAt(e.latLng, defaultRadius));
+  }
+}
 
+function drawCircleAt(location, radius) {
 
+  var circle = new google.maps.Circle({
+    strokeWeight: 0,
+    fillColor: '#efc537',
+    fillOpacity: 0.7,
+    map: map,
+    center: location,
+    radius: radius
+  });
+
+  google.maps.event.addListener(circle, 'click', function(e) {
+    newTarget(e);
+  });
+
+  return circle;
+}
+
+function setCurrentTarget(t) {
+  currentTarget = t;
+  $('#target_latitude').val(t.getCenter().lat());
+  $('#target_longitude').val(t.getCenter().lng());
+  $('#target_radius').val(defaultRadius);
+}
