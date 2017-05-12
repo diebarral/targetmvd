@@ -5,6 +5,7 @@
   <%= render partial: 'form' , :locals => {:form => form } %>
 
   <div class="actions">
+    <%= button_to "DELETE", {:controller => :targets, :action => 'destroy', :id => @target.id }, :method => :delete, :class => "submit-button delete" %>
     <%= form.submit "SAVE CHANGES", :class => "submit-button"  %>
   </div>
 <% end %>
