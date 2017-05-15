@@ -1,11 +1,11 @@
 <div class="field">
   <%= form.label "Specify area length", :class => "field-label" %><br />
-  <%= form.text_field :radius, autofocus: true, :class => "field-input" %>
+  <%= form.text_field :radius, :autocomplete => :off, autofocus: true, :class => "field-input" %>
 </div>
 
 <div class="field">
   <%= form.label "Target title", :class => "field-label" %><br />
-  <%= form.text_field :title, :class => "field-input" %>
+  <%= form.text_field :title, :autocomplete => :off, :class => "field-input" %>
 </div>
 
 <%= form.hidden_field :latitude %>
