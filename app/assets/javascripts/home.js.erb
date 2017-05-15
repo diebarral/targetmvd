@@ -10,7 +10,7 @@ $(document).ready(function(){
     validateNumericInput(e);
   });
 
-  // Resizing of target radius
+  // Resize of target on radius change
   $("#index-dynamic-container").on('focusout', "#target_radius", function () {
 
     var newradius = parseInt($('#target_radius').val());
@@ -35,7 +35,6 @@ $(document).ready(function(){
     $('#target_topic_id').val(topicId);
 
   });
-
 });
 
 function initMap() {
@@ -149,14 +148,13 @@ function editTarget(target, targetId) {
     $("#index-dynamic-container").html(data.form);
   }).done(function(){
     var topicId = $('#target_topic_id').val();
-    console.log('topic id: ' + topicId);
     $('#topic-table tbody tr[topic-id=' + topicId + ']').addClass('selected');
   });
 }
 
-function setCurrentTarget(t) {
-  currentTarget = t;
-  $('#target_latitude').val(t.getCenter().lat());
-  $('#target_longitude').val(t.getCenter().lng());
+function setCurrentTarget(target) {
+  currentTarget = target;
+  $('#target_latitude').val(target.getCenter().lat());
+  $('#target_longitude').val(target.getCenter().lng());
   $('#target_radius').val(defaultRadius);
 }

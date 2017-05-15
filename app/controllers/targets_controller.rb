@@ -1,6 +1,6 @@
 class TargetsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_target, only: [:show, :edit, :destroy]
+  before_action :set_target, only: [:show, :edit]
   before_action :set_topics, only: [:edit, :load_create_form]
 
   # GET /targets
@@ -38,11 +38,9 @@ class TargetsController < ApplicationController
   # POST /targets
   # POST /targets.json
   def create
-    @target = Target.new(target_params)
-    @target.user = current_user
 
     respond_to do |format|
-      if @target.save
+      if current_user.targets.create(target_params)
         format.html { redirect_to index_home_path, notice: 'Target was successfully created.' }
         format.json { render :show, status: :created, location: @target }
       else
@@ -55,8 +53,7 @@ class TargetsController < ApplicationController
   # PATCH/PUT /targets/1
   # PATCH/PUT /targets/1.json
   def update
-    puts(params);
-    @target = Target.find(params[:target][:id])
+    @target = current_user.targets.find(params[:target][:id])
 
     respond_to do |format|
       if @target.update(target_params)
@@ -72,9 +69,11 @@ class TargetsController < ApplicationController
   # DELETE /targets/1
   # DELETE /targets/1.json
   def destroy
+    @target = current_user.targets.find(params[:id])
     @target.destroy
+
     respond_to do |format|
-      format.html { redirect_to targets_url, notice: 'Target was successfully destroyed.' }
+      format.html { redirect_to index_home_path, notice: 'Target was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
