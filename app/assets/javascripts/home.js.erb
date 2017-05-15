@@ -1,7 +1,7 @@
-var map;
-var currentTarget;
+var map, currentTarget, latDiff, lngDiff;
 var existsCurrentTarget = false;
 var defaultRadius = 100;
+
 
 $(document).ready(function(){
 
@@ -74,6 +74,14 @@ function initMap() {
   google.maps.event.addListenerOnce(map, 'idle', function(){
     loadUserTargets();
   });
+
+  map.addListener('drag', function(e) {
+    if(existsCurrentTarget) {
+      currentTarget.setCenter(new google.maps.LatLng(map.getCenter().lat() + latDiff, map.getCenter().lng() + lngDiff));
+      setCurrentTarget(currentTarget);
+    }
+  });
+
 }
 
 function loadUserTargets() {
@@ -154,6 +162,10 @@ function editTarget(target, targetId) {
 
 function setCurrentTarget(target) {
   currentTarget = target;
+
+  latDiff = target.getCenter().lat() - map.getCenter().lat();
+  lngDiff = target.getCenter().lng() - map.getCenter().lng();
+
   $('#target_latitude').val(target.getCenter().lat());
   $('#target_longitude').val(target.getCenter().lng());
   $('#target_radius').val(defaultRadius);
