@@ -21,5 +21,4 @@ class HomeController < ApplicationController
       format.js
     end
   end
-
 end

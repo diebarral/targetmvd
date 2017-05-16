@@ -1,0 +1,8 @@
+<div class="dropdown">
+  <button class="dropdown-button"><%= current_user.name %></button>
+  <span></span>
+  <div class="dropdown-content">
+    <a id='edit-profile-link' style="cursor: pointer;">Edit profile</a>
+    <%= link_to('Log out', destroy_user_session_path, method: 'delete') %>
+  </div>
+</div>
