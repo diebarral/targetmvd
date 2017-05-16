@@ -22,4 +22,9 @@ class HomeController < ApplicationController
     end
   end
 
+  def load_edit
+    respond_to do |format|
+      format.js
+    end
+  end
 end

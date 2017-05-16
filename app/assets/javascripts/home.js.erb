@@ -2,7 +2,6 @@ var map, currentTarget, latDiff, lngDiff;
 var existsCurrentTarget = false;
 var defaultRadius = 100;
 
-
 $(document).ready(function(){
 
   // Only numbers in radius field validation.
@@ -35,9 +34,38 @@ $(document).ready(function(){
     $('#target_topic_id').val(topicId);
 
   });
+
+  $("#index-dynamic-container").on('click', '#edit-user-submit', function (e) {
+    e.preventDefault();
+    var data, url;
+
+    if($('#new_user').length){
+      data = $('#new_user').serialize();
+      url = $('#new_user').attr('action');
+    }
+    else {
+      data = $('#edit_user').serialize();
+      url = $('#edit_user').attr('action');
+    }
+
+    $.ajax({
+      url: url,
+      type: 'PUT',
+      data: data,
+      success: function(result) {
+        $("#index-dynamic-container").html(result.form);
+      }
+    });
+  });
 });
 
+
+
 function initMap() {
+
+  $(document).on('turbolinks:load', function() {
+    initMap();
+  });
 
   var mapOptions = {
       zoom: 15,
@@ -81,7 +109,6 @@ function initMap() {
       setCurrentTarget(currentTarget);
     }
   });
-
 }
 
 function loadUserTargets() {

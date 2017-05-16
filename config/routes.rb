@@ -2,12 +2,14 @@ Rails.application.routes.draw do
 
   root to: 'home#index'
 
-  devise_for :users
+  devise_for :users, controllers: { registrations: 'users/registrations' }
+
 
   resource :home do
     member do
       get 'load_sign_in', to: 'home#load_sign_in', as: 'load_sign_in'
       get 'load_sign_up', to: 'home#load_sign_up', as: 'load_sign_up'
+      get 'load_edit', to: 'home#load_edit', as: 'load_edit'
       get 'welcome', to: 'home#welcome', as: 'welcome'
       get 'index', to: 'home#index', as: 'index'
     end

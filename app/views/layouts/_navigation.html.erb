@@ -1,0 +1,8 @@
+<div class="dropdown">
+  <button class="dropdown-button"><%= current_user.name %></button>
+  <span></span>
+  <div class="dropdown-content">
+    <%= link_to('Edit profile', load_edit_home_path, :remote => true) %>
+    <%= link_to('Log out', destroy_user_session_path, method: 'delete') %>
+  </div>
+</div>
