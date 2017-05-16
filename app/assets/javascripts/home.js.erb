@@ -53,13 +53,19 @@ $(document).ready(function(){
       type: 'PUT',
       data: data,
       success: function(result) {
-        $("#index-dynamic-container").html(result.form);
+        if(result.hasOwnProperty('form')){
+          $("#index-dynamic-container").html(result.form);
+        }
       }
     });
   });
+
+  $(document).on('click','#edit-profile-link', function(){
+    $.getJSON('/users/edit', function(data) {
+      $("#index-dynamic-container").html(data.form);
+    });
+  });
 });
-
-
 
 function initMap() {
 

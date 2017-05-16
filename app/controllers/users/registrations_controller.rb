@@ -1,5 +1,11 @@
 class Users::RegistrationsController < Devise::RegistrationsController
+  before_action :authenticate_user!
   before_action :configure_account_update_params, only: [:update]
+  before_action :set_user, only: [:edit]
+
+  def edit
+    render json: { form: (render_to_string partial: '/devise/registrations/edit_form', user: @user )}
+  end
 
   # PUT /resource
   def update
@@ -14,27 +20,15 @@ class Users::RegistrationsController < Devise::RegistrationsController
           :update_needs_confirmation : :updated
         set_flash_message :notice, flash_key
       end
+      puts('updatea bien')
       bypass_sign_in resource, scope: resource_name
-      # render json: { success: 'yes', url: index_home_path }
-
-      respond_to do |format|
-        format.html { redirect_to after_update_path_for(resource) }
-      end
-
+      redirect_to after_update_path_for(resource)
     else
       clean_up_passwords resource
       set_minimum_password_length
+      puts('updatea mal')
       render json: { form: (render_to_string partial: '/devise/registrations/edit_form')}
     end
-  end
-
-  # GET /resource/cancel
-  # Forces the session data which is usually expired after sign
-  # in to be expired now. This is useful if the user wants to
-  # cancel oauth signing in/up in the middle of the process,
-  # removing all OAuth session data.
-  def cancel
-    super
   end
 
   protected
@@ -47,6 +41,13 @@ class Users::RegistrationsController < Devise::RegistrationsController
 # The path used after update.
   def after_update_path_for(resource)
     index_home_path
+  end
+
+  private
+
+  # Use callbacks to share common setup or constraints between actions.
+  def set_user
+    @user = current_user
   end
 
 end
