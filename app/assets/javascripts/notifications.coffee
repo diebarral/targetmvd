@@ -13,4 +13,4 @@ App.activity = App.cable.subscriptions.create "NotificationChannel",
     # Called when there's incoming data on the websocket for this channel
     $('#notifications').html('')
     $('#notifications').append "<div class='notification'>#{notification.message}</div>"
-    $('#notifications-modal').css('display', 'block');
+    $('#notifications-modal').show();

@@ -3,7 +3,6 @@ class TargetsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_target, only: [:show, :edit]
   before_action :set_topics, only: [:edit, :load_create_form]
-  # after_action :compatible_targets, only: [:create, :update]
 
   # GET /targets
   # GET /targets.json
