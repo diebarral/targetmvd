@@ -65,6 +65,10 @@ $(document).ready(function(){
       $("#index-dynamic-container").html(data.form);
     });
   });
+
+  $('#close-modal').click(function(){
+    $('#notifications-modal').hide();
+  });
 });
 
 function initMap() {

@@ -1,7 +1,9 @@
 class TargetsController < ApplicationController
+
   before_action :authenticate_user!
   before_action :set_target, only: [:show, :edit]
   before_action :set_topics, only: [:edit, :load_create_form]
+  # after_action :compatible_targets, only: [:create, :update]
 
   # GET /targets
   # GET /targets.json
@@ -40,7 +42,7 @@ class TargetsController < ApplicationController
   def create
 
     respond_to do |format|
-      if current_user.targets.create(target_params)
+      if @target = current_user.targets.create(target_params)
         format.html { redirect_to index_home_path, notice: 'Target was successfully created.' }
         format.json { render :show, status: :created, location: @target }
       else

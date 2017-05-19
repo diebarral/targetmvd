@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
 
+  get 'notifications/index'
+  mount ActionCable.server => '/cable'
+
   root to: 'home#index'
 
-  devise_for :users, controllers: { registrations: 'users/registrations' }
+  devise_for :users, controllers: { registrations: 'users/registrations', sessions: 'users/sessions' }
 
 
   resource :home do

@@ -10,10 +10,34 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170511134928) do
+ActiveRecord::Schema.define(version: 20170519125502) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "matches", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_a_id"
+    t.integer "user_b_id"
+    t.integer "topic_id"
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.string "text"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id"
+    t.integer "match_id"
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.string "message"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "recipient"
+    t.boolean "seen", default: true
+  end
 
   create_table "targets", force: :cascade do |t|
     t.float "latitude"
@@ -53,5 +77,11 @@ ActiveRecord::Schema.define(version: 20170511134928) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "matches", "topics"
+  add_foreign_key "matches", "users", column: "user_a_id"
+  add_foreign_key "matches", "users", column: "user_b_id"
+  add_foreign_key "messages", "matches"
+  add_foreign_key "messages", "users"
+  add_foreign_key "notifications", "users", column: "recipient"
   add_foreign_key "targets", "users"
 end

@@ -3,7 +3,7 @@ class HomeController < ApplicationController
   before_action :authenticate_user!, except: [:welcome, :load_sign_up, :load_sign_in]
 
   def index
-
+    @notifications = Notification.all
   end
 
   def welcome
