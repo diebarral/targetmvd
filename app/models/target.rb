@@ -3,12 +3,16 @@ class Target < ApplicationRecord
   belongs_to :user
   belongs_to :topic
 
+  scope :within_range, -> (origin, radius) { within(radius * 0.001, :units => :kms, :origin => origin) }
+  scope :not_belonging_to, -> (user_id) { where.not(user_id: user_id) }
+  scope :with_topic, -> (topic_id) { where(topic_id: topic_id) }
+
   after_commit :search_for_compatible_targets, on: [:create, :update]
 
   def search_for_compatible_targets
 
     origin = Geokit::LatLng.new(self.latitude, self.longitude)
-    compatible_targets = Target.within(self.radius * 0.001, :units => :kms, :origin => origin).all.select { |t| t.user_id != self.user_id && t.topic_id == self.topic_id }
+    compatible_targets = Target.within_range(origin, self.radius).not_belonging_to(self.user_id).with_topic(self.topic_id)
 
     owners_of_compatible_targets = Array.new
 
@@ -19,14 +23,14 @@ class Target < ApplicationRecord
 
       username = t.user.name
 
-      if not owners_of_compatible_targets.include? username
+      if !owners_of_compatible_targets.include? username
         owners_of_compatible_targets.push(username)
         create_notification([self.user.name], t.user_id)
       end
 
     end
 
-    if not owners_of_compatible_targets.empty?
+    if owners_of_compatible_targets.present?
       create_notification(owners_of_compatible_targets, self.user_id)
     end
   end
