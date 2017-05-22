@@ -1,11 +1,17 @@
 class Target < ApplicationRecord
+
   acts_as_mappable :default_units => :kms, :lat_column_name => :latitude, :lng_column_name => :longitude
+
   belongs_to :user
   belongs_to :topic
 
+  validate :max_targets
+
   scope :within_range, -> (origin, radius) { within(radius * 0.001, :units => :kms, :origin => origin) }
   scope :not_belonging_to, -> (user_id) { where.not(user_id: user_id) }
+  scope :belonging_to, -> (user_id) { where(user_id: user_id) }
   scope :with_topic, -> (topic_id) { where(topic_id: topic_id) }
+
 
   after_commit :search_for_compatible_targets, on: [:create, :update]
 
@@ -51,4 +57,10 @@ class Target < ApplicationRecord
 
     Notification.create({ message: message, recipient: recipient })
   end
+
+  def max_targets
+    count_user_targets = Target.belonging_to(self.user_id).count
+    errors.add(:targets, "You can have at most 10 active targets.") if count_user_targets >= 10
+  end
+
 end
