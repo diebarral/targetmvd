@@ -60,7 +60,7 @@ class Target < ApplicationRecord
 
   def max_targets
     count_user_targets = Target.belonging_to(self.user_id).count
-    errors.add(:targets, "You can have at most 10 active targets") if count_user_targets >= 10
+    errors.add(:targets, "You can have at most 10 active targets.") if count_user_targets >= 10
   end
 
 end

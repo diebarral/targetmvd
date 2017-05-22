@@ -1,4 +1,6 @@
 require 'rails_helper'
+# require 'factories/targets.rb'
+# require 'factories/users.rb'
 
 RSpec.describe Target, type: :model do
 
@@ -110,6 +112,28 @@ RSpec.describe Target, type: :model do
 
         expect(test_notification.message).to eq(dummy_notification.message)
         expect(test_notification.recipient).to eq(dummy_notification.recipient)
+      end
+    end
+  end
+
+  describe 'number of targets per user validation' do
+    let(:user) { FactoryGirl.create(:user) }
+    context 'inserting 10 or less targets' do
+
+      it 'inserts 5 targets successfully' do
+        expect{ FactoryGirl.create_list(:target, 5, user: user) }.to_not raise_error
+      end
+      it 'inserts 10 targets successfully' do
+        expect{ FactoryGirl.create_list(:target, 10, user: user) }.to_not raise_error
+      end
+    end
+
+    context 'inserting 11 or more targets' do
+      it 'fails at validation when inserting 11 targets' do
+        expect{ FactoryGirl.create_list(:target, 11, user: user) }.to raise_error(ActiveRecord::RecordInvalid)
+      end
+      it 'fails at validation when inserting 20 targets' do
+        expect{ FactoryGirl.create_list(:target, 20, user: user) }.to raise_error(ActiveRecord::RecordInvalid)
       end
     end
   end
