@@ -7,13 +7,7 @@ class HomeController < ApplicationController
     @matches = []
 
     all_matches_for_current_user.each do |match|
-      username = ''
-      if match.user_a_id != current_user.id
-        username = match.user_a.name
-      else
-        username = match.user_b.name
-      end
-
+      username = match.user_a_id != current_user.id ? match.user_a.name : match.user_b.name
       @matches.push({ id: match.id, username: username, topic: match.topic.name })
     end
     @target_count = current_user.targets.count
