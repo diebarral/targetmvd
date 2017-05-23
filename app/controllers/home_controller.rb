@@ -3,7 +3,14 @@ class HomeController < ApplicationController
   before_action :authenticate_user!, except: [:welcome, :load_sign_up, :load_sign_in]
 
   def index
-    @notifications = Notification.all
+    all_matches_for_current_user = Match.for_user(current_user.id)
+    @matches = []
+
+    all_matches_for_current_user.each do |match|
+      username = match.user_a_id != current_user.id ? match.user_a.name : match.user_b.name
+      @matches.push({ id: match.id, username: username, topic: match.topic.name })
+    end
+    @target_count = current_user.targets.count
   end
 
   def welcome

@@ -5,7 +5,9 @@
 
 <div class="welcome-container">
 
-  <div id='index-dynamic-container' class="index-dynamic-container"></div>
+  <div id='index-dynamic-container' class="index-dynamic-container">
+    <%= render partial: 'main', locals: { matches: @matches, target_count: @target_count } %>
+  </div>
   <div id='map' class="google-map"></div>
 
 </div>
