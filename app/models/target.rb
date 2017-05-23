@@ -24,16 +24,16 @@ class Target < ApplicationRecord
 
     compatible_targets.each do |t|
 
-      # TO DO: create Match object in database, after checking if it doesn´t exist already.
-      # If it exists, a notification shouldn´t be sent.
+      if !Match.between(t.user_id, self.user_id).about(self.topic_id).any?
+        username = t.user.name
 
-      username = t.user.name
+        Match.create({ user_a_id: self.user_id, user_b_id: t.user_id, topic_id: self.topic_id })
 
-      if !owners_of_compatible_targets.include? username
-        owners_of_compatible_targets.push(username)
-        create_notification([self.user.name], t.user_id)
+        if !owners_of_compatible_targets.include? username
+          owners_of_compatible_targets.push(username)
+          create_notification([self.user.name], t.user_id)
+        end
       end
-
     end
 
     if owners_of_compatible_targets.present?

@@ -5,16 +5,9 @@
   <table class="matches-table">
     <th>Start a conversation with:</th>
     <% @matches.each do |match| %>
-
-          <% if current_user.id != match.user_a_id %>
-            <tr user-id=<%= match.user_a_id %> >
-              <td>
-                <%= match.user_a.name %> about <%= match.topic.name %>
-          <% else %>
-            <tr user-id=<%= match.user_b_id %> >
-              <td>
-                <%= match.user_b.name %> about <%= match.topic.name %>
-          <% end %>
+      <tr match-id=<%= match[:id] %> >
+        <td>
+          <%= match[:username] %> about <%= match[:topic] %>
         </td>
       </tr>
     <% end %>
