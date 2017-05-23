@@ -1,6 +1,4 @@
 require 'rails_helper'
-# require 'factories/targets.rb'
-# require 'factories/users.rb'
 
 RSpec.describe Target, type: :model do
 
