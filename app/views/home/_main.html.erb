@@ -6,7 +6,7 @@
     <table id='matches-table' class="matches-table">
       <th>Start a conversation with:</th>
       <% @matches.each do |match| %>
-        <tr match-id=<%= match[:id] %> user-id=<%= match[:user_id] %> >
+        <tr class="matches-table-row" data-match-id=<%= match[:id] %> data-user-id=<%= match[:user_id] %> >
           <td>
             <%= match[:user_name] %> about <%= match[:topic] %>
           </td>

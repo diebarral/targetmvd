@@ -7,8 +7,8 @@ class HomeController < ApplicationController
     @matches = []
 
     all_matches_for_current_user.each do |match|
-      user = match.user_a_id != current_user.id ? match.user_a : match.user_b
-      @matches.push({ id: match.id, user_id: user.id, user_name: user.name, topic: match.topic.name })
+      destinatary = match.get_destinatary(current_user.id)
+      @matches.push({ id: match.id, user_id: destinatary.id, user_name: destinatary.name, topic: match.topic.name })
     end
     @target_count = current_user.targets.count
   end

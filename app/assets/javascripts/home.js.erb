@@ -34,9 +34,10 @@ $(document).ready(function(){
     $('#target_topic_id').val(topicId);
   });
 
-  $("#index-dynamic-container").on('click', "#matches-table > tbody > tr", function () {
-    var match_id = $(this).attr('match-id');
-    $('#destinatary').val($(this).attr('user-id'));
+  // $("#index-dynamic-container").on('click', "#matches-table > tbody > tr", function () {
+  $("#index-dynamic-container").on('click', ".matches-table-row", function () {
+    var match_id = $(this).data('match-id');
+    $('#destinatary').val($(this).data('user-id'));
     $('#match').val(match_id);
     $.getJSON('/matches/get_messages', { id: match_id }, function(data) {
       $("#conversation-container").html(data.form);

@@ -7,12 +7,11 @@ App.notification = App.cable.subscriptions.create "NotificationChannel",
 
   received: (notification) ->
 
-    if notification.code == 1
-      $('#notifications').html('')
-      $('#notifications').append("<div class='notification'>#{notification.message}</div>")
+    if notification.code == 'notification'
+      $('#notifications').html("<div class='notification'>#{notification.message}</div>")
       $('#notifications-modal').show()
 
-    else
+    else if notification.code == 'message'
       match_id = parseInt($('#match').val())
       if match_id == notification.message.match_id
         $('#conversation-body').append(notification.message.html_element)
