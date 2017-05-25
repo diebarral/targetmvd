@@ -20,13 +20,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
           :update_needs_confirmation : :updated
         set_flash_message :notice, flash_key
       end
-      puts('updatea bien')
       bypass_sign_in resource, scope: resource_name
       redirect_to after_update_path_for(resource)
     else
       clean_up_passwords resource
       set_minimum_password_length
-      puts('updatea mal')
       render json: { form: (render_to_string partial: '/devise/registrations/edit_form')}
     end
   end

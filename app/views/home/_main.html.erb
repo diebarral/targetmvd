@@ -1,17 +1,23 @@
 <% if matches.any? %>
-  <h3 class="target-mvd">
-    Matches
-  </h3>
-  <table class="matches-table">
-    <th>Start a conversation with:</th>
-    <% @matches.each do |match| %>
-      <tr match-id=<%= match[:id] %> >
-        <td>
-          <%= match[:username] %> about <%= match[:topic] %>
-        </td>
-      </tr>
-    <% end %>
-  </table>
+  <div id='matches-table-container' class="matches-table-container">
+    <h3 class="target-mvd">
+      Matches
+    </h3>
+    <table id='matches-table' class="matches-table">
+      <th>Start a conversation with:</th>
+      <% @matches.each do |match| %>
+        <tr match-id=<%= match[:id] %> user-id=<%= match[:user_id] %> >
+          <td>
+            <%= match[:user_name] %> about <%= match[:topic] %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+
+  <div id='conversation-container' class='conversation-container' style="display: none;"></div>
+  <input type="hidden" id='destinatary' />
+  <input type="hidden" id='match' />
 
 <% else %>
 
@@ -51,4 +57,4 @@
 
 <% end %>
 
-<%= image_tag("smilies.png", :class => "smilies", :style => "margin-top: 200px;") %>
+<%= image_tag("smilies.png", :class => "smilies bottom") %>

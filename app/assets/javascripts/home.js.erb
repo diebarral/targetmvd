@@ -32,7 +32,18 @@ $(document).ready(function(){
     //Sets topic_id to hidden form input.
     var topicId = $(this).attr('topic-id');
     $('#target_topic_id').val(topicId);
+  });
 
+  $("#index-dynamic-container").on('click', "#matches-table > tbody > tr", function () {
+    var match_id = $(this).attr('match-id');
+    $('#destinatary').val($(this).attr('user-id'));
+    $('#match').val(match_id);
+    $.getJSON('/matches/get_messages', { id: match_id }, function(data) {
+      $("#conversation-container").html(data.form);
+      $('#matches-table-container').hide();
+      $("#conversation-container").show();
+      $("#conversation-container").animate({ scrollTop: $("#conversation-container")[0].scrollHeight}, 1000);
+    });
   });
 
   $("#index-dynamic-container").on('click', '#edit-user-submit', function (e) {
@@ -69,6 +80,32 @@ $(document).ready(function(){
   $('#close-modal').click(function(){
     $('#notifications-modal').hide();
   });
+
+  $(document).on('click','#chat-send', function(){
+    var message = $('#chat-input').val();
+    var destinatary = $('#destinatary').val();
+    var match = $('#match').val();
+    var data = { text: message, destinatary: destinatary, match_id: match }
+
+    $.post({
+      url: '/messages/create',
+      data: data,
+      success: function(result) {
+        $('#conversation-body').append(
+          $("<div>")
+            .addClass('area')
+            .append(
+              $("<div>")
+                .addClass('text sent')
+                .html(message)
+            )
+        );
+        $('#chat-input').val('');
+        $("#conversation-container").animate({ scrollTop: $("#conversation-container")[0].scrollHeight}, 1000);
+      }
+    });
+  });
+
 });
 
 function initMap() {

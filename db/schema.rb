@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170519125502) do
+ActiveRecord::Schema.define(version: 20170525174933) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,8 +27,9 @@ ActiveRecord::Schema.define(version: 20170519125502) do
     t.string "text"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "user_id"
+    t.integer "destinatary"
     t.integer "match_id"
+    t.boolean "read"
   end
 
   create_table "notifications", force: :cascade do |t|
@@ -81,7 +82,7 @@ ActiveRecord::Schema.define(version: 20170519125502) do
   add_foreign_key "matches", "users", column: "user_a_id"
   add_foreign_key "matches", "users", column: "user_b_id"
   add_foreign_key "messages", "matches"
-  add_foreign_key "messages", "users"
+  add_foreign_key "messages", "users", column: "destinatary"
   add_foreign_key "notifications", "users", column: "recipient"
   add_foreign_key "targets", "users"
 end

@@ -16,7 +16,6 @@ class Target < ApplicationRecord
   after_commit :search_for_compatible_targets, on: [:create, :update]
 
   def search_for_compatible_targets
-
     origin = Geokit::LatLng.new(self.latitude, self.longitude)
     compatible_targets = Target.within_range(origin, self.radius).not_belonging_to(self.user_id).with_topic(self.topic_id)
 
