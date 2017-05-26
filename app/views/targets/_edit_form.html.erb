@@ -1,12 +1,14 @@
-<%= image_tag("target_icon.png", :class => "target-icon") %>
-<h3 class="welcome-info-header">EDIT TARGET</h3>
-<%= form_for @target, url: targets_path do |form| %>
+<div class="form-wrapper">
+    <%= image_tag("target_icon.png", :class => "target-icon") %>
+    <h3 class="welcome-info-header">EDIT TARGET</h3>
+    <%= form_for @target, url: targets_path do |form| %>
 
-  <%= render partial: 'form' , :locals => {:form => form } %>
+      <%= render partial: 'form' , :locals => {:form => form } %>
 
-  <div class="actions">
+      <div class="actions">
 
-    <%= form.submit "SAVE CHANGES", :class => "submit-button"  %>
-  </div>
-<% end %>
-<%= button_to "DELETE", {:controller => :targets, :action => 'destroy', :id => @target.id }, :method => :delete, :class => "submit-button delete" %>
+        <%= form.submit "SAVE CHANGES", :class => "submit-button"  %>
+      </div>
+    <% end %>
+    <%= button_to "DELETE", {:controller => :targets, :action => 'destroy', :id => @target.id }, :method => :delete, :class => "submit-button delete" %>
+</div>

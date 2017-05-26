@@ -1,54 +1,64 @@
 <% if matches.any? %>
-  <h3 class="target-mvd">
-    Matches
-  </h3>
-  <table class="matches-table">
-    <th>Start a conversation with:</th>
-    <% @matches.each do |match| %>
-      <tr match-id=<%= match[:id] %> >
-        <td>
-          <%= match[:username] %> about <%= match[:topic] %>
-        </td>
-      </tr>
-    <% end %>
-  </table>
+  <div id='matches-table-container' class="matches-table-container">
+    <h3 class="target-mvd">
+      Matches
+    </h3>
+    <table id='matches-table' class="matches-table">
+      <th>Start a conversation with:</th>
+      <% @matches.each do |match| %>
+        <tr class="matches-table-row" data-match-id=<%= match[:id] %> data-user-id=<%= match[:user_id] %> >
+          <td>
+            <%= match[:user_name] %> about <%= match[:topic] %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+
+  <div id='conversation-container' class='conversation-container' style="display: none;"></div>
+  <input type="hidden" id='destinatary' />
+  <input type="hidden" id='match' />
 
 <% else %>
 
   <% if target_count == 0 %>
-    <h3 class="target-mvd">
-      Create your first target by clicking wherever on the map.
-    </h3>
-    <h3 class="welcome-info-header">
-      Pss! these are the most popular targets:
-    </h3>
+    <div class="form-wrapper">
+      <h3 class="target-mvd">
+        Create your first target by clicking wherever on the map.
+      </h3>
+      <h3 class="welcome-info-header">
+        Pss! These are the most popular targets:
+      </h3>
 
-    <table style="text-align: center; width: 100%;">
-      <tr>
-        <td>
-          <span><i><%= image_tag("1.png", :class => "topic-icon")  %></i></span>
-          Football
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <span><i><%= image_tag("6.png", :class => "topic-icon")  %></i></span>
-          Music
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <span><i><%= image_tag("7.png", :class => "topic-icon")  %></i></span>
-          Movies
-        </td>
-      </tr>
-    </table>
+      <table style="text-align: center; width: 100%;">
+        <tr>
+          <td>
+            <span><i><%= image_tag("1.png", :class => "topic-icon")  %></i></span>
+            Football
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <span><i><%= image_tag("6.png", :class => "topic-icon")  %></i></span>
+            Music
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <span><i><%= image_tag("7.png", :class => "topic-icon")  %></i></span>
+            Movies
+          </td>
+        </tr>
+      </table>
+    </div>
   <% else %>
-    <h3 class="target-mvd">
-      There are no matches for your targets yet.
-    </h3>
+    <div class="form-wrapper">
+      <h3 class="target-mvd">
+        There are no matches for your targets yet.
+      </h3>
+    </div>
   <% end %>
 
 <% end %>
 
-<%= image_tag("smilies.png", :class => "smilies", :style => "margin-top: 200px;") %>
+<%= image_tag("smilies.png", :class => "smilies bottom") %>

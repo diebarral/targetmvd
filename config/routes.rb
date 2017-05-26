@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
 
+  post 'messages/create'
+  get 'matches/get_messages'
   get 'notifications/index'
+
   mount ActionCable.server => '/cable'
 
   root to: 'home#index'

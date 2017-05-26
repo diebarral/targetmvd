@@ -1,6 +1,18 @@
 class MessageRelayJob < ApplicationJob
+  queue_as :default
+
   def perform(message)
-    ActionCable.server.broadcast "matches:#{message.match_id}:messages",
-      message: MessageController.render(partial: 'messages/message', locals: { message: message })
+    begin
+      ActionCable.server.broadcast "notification_channel_#{message.destinatary}", message: { match_id: message.match_id, html_element: render_message(message.text) }, code: 'message'
+    rescue Exception => e
+      puts('Error while broadcasting message: ' + e.to_s)
+    end
+
+  end
+
+  private
+
+  def render_message(message)
+    ApplicationController.renderer.render(partial: 'messages/message', locals: { message: message })
   end
 end

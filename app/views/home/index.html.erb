@@ -1,29 +1,31 @@
+<div class="wrapper">
+  <nav class="navbar">
+  <%= render 'layouts/navigation' %>
+  </nav>
 
-<nav class="navbar">
-<%= render 'layouts/navigation' %>
-</nav>
+  <div class="welcome-container">
 
-<div class="welcome-container">
+    <div id='index-dynamic-container' class="index-dynamic-container">
+      <%= render partial: 'main', locals: { matches: @matches, target_count: @target_count } %>
+    </div>
+    <div id='map' class="google-map"></div>
 
-  <div id='index-dynamic-container' class="index-dynamic-container">
-    <%= render partial: 'main', locals: { matches: @matches, target_count: @target_count } %>
   </div>
-  <div id='map' class="google-map"></div>
 
+  <div id="notifications-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <span id='close-modal' class="close">&times;</span>
+        <h2>Congratulations!</h2>
+      </div>
+      <div class="modal-body">
+        <%= image_tag("smilies.png", :class => "smilies") %>
+        <h3>You have a new match!</h3>
+        <div id="notifications"></div>
+      </div>
+    </div>
+  </div>
 </div>
 
-<div id="notifications-modal" class="modal">
-  <div class="modal-content">
-    <div class="modal-header">
-      <span id='close-modal' class="close">&times;</span>
-      <h2>Congratulations!</h2>
-    </div>
-    <div class="modal-body">
-      <%= image_tag("smilies.png", :class => "smilies") %>
-      <h3>You have a new match!</h3>
-      <div id="notifications"></div>
-    </div>
-  </div>
-</div>
 
 

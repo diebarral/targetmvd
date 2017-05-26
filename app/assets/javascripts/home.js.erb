@@ -6,7 +6,7 @@ $(document).ready(function(){
 
   // Only numbers in radius field validation.
   $("#index-dynamic-container").on('keydown', "#target_radius", function (e) {
-    validateNumericInput(e);
+    validate_numeric_input(e);
   });
 
   // Resize of target on radius change
@@ -32,9 +32,22 @@ $(document).ready(function(){
     //Sets topic_id to hidden form input.
     var topicId = $(this).attr('topic-id');
     $('#target_topic_id').val(topicId);
-
   });
 
+  //Click on the matches table, shows conversation for the row clicked.
+  $("#index-dynamic-container").on('click', ".matches-table-row", function () {
+    var match_id = $(this).data('match-id');
+    $('#destinatary').val($(this).data('user-id'));
+    $('#match').val(match_id);
+    $.getJSON('/matches/get_messages', { id: match_id }, function(data) {
+      $("#conversation-container").html(data.form);
+      $('#matches-table-container').hide();
+      $("#conversation-container").show();
+      $("#conversation-container").animate({ scrollTop: $("#conversation-container")[0].scrollHeight}, 1000);
+    });
+  });
+
+  // /users PUT - updates user information
   $("#index-dynamic-container").on('click', '#edit-user-submit', function (e) {
     e.preventDefault();
     var data, url;
@@ -60,15 +73,44 @@ $(document).ready(function(){
     });
   });
 
+  // Shows edit form for user
   $(document).on('click','#edit-profile-link', function(){
     $.getJSON('/users/edit', function(data) {
       $("#index-dynamic-container").html(data.form);
     });
   });
 
+  // Closes modal window
   $('#close-modal').click(function(){
     $('#notifications-modal').hide();
   });
+
+  // Send message to user
+  $(document).on('click','#chat-send', function(){
+    var message = $('#chat-input').val();
+    var destinatary = $('#destinatary').val();
+    var match = $('#match').val();
+    var data = { text: message, destinatary: destinatary, match_id: match }
+
+    $.post({
+      url: '/messages/create',
+      data: data,
+      success: function(result) {
+        $('#conversation-body').append(
+          $("<div>")
+            .addClass('area')
+            .append(
+              $("<div>")
+                .addClass('text sent')
+                .html(message)
+            )
+        );
+        $('#chat-input').val('');
+        $("#conversation-container").animate({ scrollTop: $("#conversation-container")[0].scrollHeight}, 1000);
+      }
+    });
+  });
+
 });
 
 function initMap() {
@@ -106,31 +148,31 @@ function initMap() {
   }
 
   map.addListener('click', function(e) {
-    newTarget(e);
+    new_target(e);
   });
 
   google.maps.event.addListenerOnce(map, 'idle', function(){
-    loadUserTargets();
+    load_user_targets();
   });
 
   map.addListener('drag', function(e) {
     if(existsCurrentTarget) {
       currentTarget.setCenter(new google.maps.LatLng(map.getCenter().lat() + latDiff, map.getCenter().lng() + lngDiff));
-      setCurrentTarget(currentTarget);
+      set_current_target(currentTarget);
     }
   });
 }
 
-function loadUserTargets() {
+function load_user_targets() {
   $.getJSON('/targets/list', function(targetsList) {
     jQuery.each(targetsList, function(index, target){
       var targetsCenter = new google.maps.LatLng(target.latitude, target.longitude);
-      drawCircleAt(targetsCenter, target.radius, target.id);
+      draw_circle_at(targetsCenter, target.radius, target.id);
     });
   });
 }
 
-function validateNumericInput(e) {
+function validate_numeric_input(e) {
   // Allow: backspace, delete, tab, escape, enter and .
   if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
     // Allow: Ctrl/cmd+A
@@ -151,21 +193,21 @@ function validateNumericInput(e) {
   }
 }
 
-function newTarget(e) {
+function new_target(e) {
   if(!existsCurrentTarget){
     existsCurrentTarget = true;
     $.getJSON('/targets/load_create_form', function(data) {
       $("#index-dynamic-container").html(data.form);
-      setCurrentTarget(drawCircleAt(e.latLng, defaultRadius, 0));
+      set_current_target(draw_circle_at(e.latLng, defaultRadius, 0));
     });
   }
   else {
     currentTarget.setMap(null);
-    setCurrentTarget(drawCircleAt(e.latLng, defaultRadius, 0));
+    set_current_target(draw_circle_at(e.latLng, defaultRadius, 0));
   }
 }
 
-function drawCircleAt(location, radius, targetId) {
+function draw_circle_at(location, radius, target_id) {
 
   var circle = new google.maps.Circle({
     strokeWeight: 0,
@@ -174,19 +216,19 @@ function drawCircleAt(location, radius, targetId) {
     map: map,
     center: location,
     radius: radius,
-    targetId: targetId
+    targetId: target_id
   });
 
-  if(targetId != 0) {
+  if(target_id != 0) {
     google.maps.event.addListener(circle, 'click', function(e) {
-      editTarget(circle, targetId);
+      edit_target(circle, target_id);
     });
   }
 
   return circle;
 }
 
-function editTarget(target, targetId) {
+function edit_target(target, targetId) {
 
   currentTarget = target;
   $.getJSON('/targets/edit', { id: targetId }, function(data) {
@@ -197,7 +239,7 @@ function editTarget(target, targetId) {
   });
 }
 
-function setCurrentTarget(target) {
+function set_current_target(target) {
   currentTarget = target;
 
   latDiff = target.getCenter().lat() - map.getCenter().lat();

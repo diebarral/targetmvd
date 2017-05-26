@@ -80,17 +80,17 @@ class TargetsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_target
-      @target = Target.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_target
+    @target = Target.find(params[:id])
+  end
 
-    def set_topics
-      @topics = Topic.all
-    end
+  def set_topics
+    @topics = Topic.all
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def target_params
-      params.fetch(:target, {}).permit(:radius, :title, :latitude, :longitude, :topic_id)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def target_params
+    params.fetch(:target, {}).permit(:radius, :title, :latitude, :longitude, :topic_id)
+  end
 end

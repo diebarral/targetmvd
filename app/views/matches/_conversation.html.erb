@@ -1,0 +1,20 @@
+<div id='chat-header' class="chat-header">
+  <h3 class="conversation-destinatary"> <%= @username %> </h3>
+  <h3 class="conversation-topic">
+    <span><i><%= image_tag("#{@topic.id}.png", :class => "topic-icon")  %></i></span>
+    <%= @topic.name %>
+  </h3>
+</div>
+<div id='conversation-body' class="conversation-body">
+  <% @messages.each do |message| %>
+    <div class="area">
+      <div class="text <%= message_class(message.destinatary) %>">
+        <%= message.text %>
+      </div>
+    </div>
+  <% end %>
+</div>
+<div class="message-box">
+  <input type="text" id='chat-input' class='chat-input' placeholder="Send message..."/>
+  <button type="button" id="chat-send" class="chat-send">Send</button>
+</div>
