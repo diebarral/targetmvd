@@ -489,6 +489,11 @@
     cursor: pointer;
 }
 
+.cursor-pointer {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
 .modal-content {
   align-items: center;
   position: relative;
