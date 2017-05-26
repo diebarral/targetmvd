@@ -22,37 +22,41 @@
 <% else %>
 
   <% if target_count == 0 %>
-    <h3 class="target-mvd">
-      Create your first target by clicking wherever on the map.
-    </h3>
-    <h3 class="welcome-info-header">
-      Pss! these are the most popular targets:
-    </h3>
+    <div class="form-wrapper">
+      <h3 class="target-mvd">
+        Create your first target by clicking wherever on the map.
+      </h3>
+      <h3 class="welcome-info-header">
+        Pss! These are the most popular targets:
+      </h3>
 
-    <table style="text-align: center; width: 100%;">
-      <tr>
-        <td>
-          <span><i><%= image_tag("1.png", :class => "topic-icon")  %></i></span>
-          Football
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <span><i><%= image_tag("6.png", :class => "topic-icon")  %></i></span>
-          Music
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <span><i><%= image_tag("7.png", :class => "topic-icon")  %></i></span>
-          Movies
-        </td>
-      </tr>
-    </table>
+      <table style="text-align: center; width: 100%;">
+        <tr>
+          <td>
+            <span><i><%= image_tag("1.png", :class => "topic-icon")  %></i></span>
+            Football
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <span><i><%= image_tag("6.png", :class => "topic-icon")  %></i></span>
+            Music
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <span><i><%= image_tag("7.png", :class => "topic-icon")  %></i></span>
+            Movies
+          </td>
+        </tr>
+      </table>
+    </div>
   <% else %>
-    <h3 class="target-mvd">
-      There are no matches for your targets yet.
-    </h3>
+    <div class="form-wrapper">
+      <h3 class="target-mvd">
+        There are no matches for your targets yet.
+      </h3>
+    </div>
   <% end %>
 
 <% end %>

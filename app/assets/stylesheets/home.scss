@@ -110,6 +110,11 @@
   transform: translate(-50%);
 }
 
+.modal-icon {
+  margin-top: 10px;
+  position: sticky;
+}
+
 .bottom {
   position: absolute;
   bottom: 50px;
@@ -267,6 +272,10 @@
   color: #000000;
 }
 
+.form-wrapper {
+  text-align: center;
+}
+
 .matches-table-container {
   text-align: center;
 }
@@ -421,6 +430,7 @@
   width: 100%;
   height: auto;
   font-family: OpenSans, sans-serif;
+  overflow: hidden;
 }
 
 .chat-input {

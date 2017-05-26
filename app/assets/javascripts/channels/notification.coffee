@@ -6,7 +6,6 @@ App.notification = App.cable.subscriptions.create "NotificationChannel",
     # Called when the subscription has been terminated by the server
 
   received: (notification) ->
-
     if notification.code == 'notification'
       $('#notifications').html("<div class='notification'>#{notification.message}</div>")
       $('#notifications-modal').show()
