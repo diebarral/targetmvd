@@ -3,7 +3,11 @@ class NotificationRelayJob < ApplicationJob
 
   def perform(notification)
     begin
-      ActionCable.server.broadcast "notification_channel_#{notification.recipient}", message: render_notification(notification), code: 'notification'
+
+      user = notification.match.get_destinatary(notification.recipient)
+
+      ActionCable.server.broadcast "notification_channel_#{notification.recipient}", message: { html_elem: render_notification(notification), match_id: notification.match_id, user_id: user.id, username: user.name, topic: notification.match.topic.name}, code: 'notification'
+
       notification.update({ seen: true })
     rescue => e
       puts('Error while broadcasting notification: ' + e.to_s)

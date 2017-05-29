@@ -17,44 +17,34 @@ class Target < ApplicationRecord
 
   def search_for_compatible_targets
     origin = Geokit::LatLng.new(self.latitude, self.longitude)
+
+    # Looks in the database for compatible targets
     compatible_targets = Target.within_range(origin, self.radius).not_belonging_to(self.user_id).with_topic(self.topic_id)
 
     owners_of_compatible_targets = Array.new
 
     compatible_targets.each do |t|
 
+      # Checks if already exist a match between two users with a certain topic.
       if !Match.between(t.user_id, self.user_id).about(self.topic_id).any?
         username = t.user.name
 
-        Match.create({ user_a_id: self.user_id, user_b_id: t.user_id, topic_id: self.topic_id })
+        # Creates match
+        new_match = Match.create({ user_a_id: self.user_id, user_b_id: t.user_id, topic_id: self.topic_id })
 
+        # Checks if a notification to that user was already sent.
         if !owners_of_compatible_targets.include? username
           owners_of_compatible_targets.push(username)
-          create_notification([self.user.name], t.user_id)
+          create_notification(self.user.name, t.user_id, new_match)
+          create_notification(username, self.user_id, new_match)
         end
       end
     end
-
-    if owners_of_compatible_targets.present?
-      create_notification(owners_of_compatible_targets, self.user_id)
-    end
   end
 
-  def create_notification(owners_of_compatible_targets, recipient)
-
-    message = 'Start a conversation now with '
-
-    owners_of_compatible_targets.each_with_index do |username, i|
-      if i == 0
-          message << username
-      elsif i < owners_of_compatible_targets.length - 1
-          message << ', ' << username
-      else
-          message << ' and ' << username
-      end
-    end
-
-    Notification.create({ message: message, recipient: recipient })
+  def create_notification(username, recipient, match)
+    message = 'Start a conversation now with ' + username
+    Notification.create({ message: message, recipient: recipient, match: match })
   end
 
   def max_targets
