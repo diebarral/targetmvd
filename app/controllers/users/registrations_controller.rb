@@ -3,6 +3,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
   before_action :configure_account_update_params, only: [:update]
   before_action :set_user, only: [:edit]
 
+  # POST /resource
+  def create
+    super
+    cookies[:user_id] = current_user.id
+  end
+
   def edit
     render json: { form: (render_to_string partial: '/devise/registrations/edit_form', user: @user )}
   end

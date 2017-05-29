@@ -43,6 +43,7 @@ $(document).ready(function(){
       $("#conversation-container").html(data.form);
       $('#matches-table-container').hide();
       $("#conversation-container").show();
+      $("#hide-chat").show();
       $("#conversation-container").animate({ scrollTop: $("#conversation-container")[0].scrollHeight}, 1000);
     });
   });
@@ -109,6 +110,14 @@ $(document).ready(function(){
         $("#conversation-container").animate({ scrollTop: $("#conversation-container")[0].scrollHeight}, 1000);
       }
     });
+  });
+
+  $(document).on('click', '#hide-chat', function(){
+    $("#hide-chat").hide();
+    $('#destinatary').val('');
+    $('#match').val('');
+    $('#matches-table-container').show();
+    $("#conversation-container").hide();
   });
 
 });
