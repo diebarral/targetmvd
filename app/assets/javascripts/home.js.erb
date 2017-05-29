@@ -112,6 +112,13 @@ $(document).ready(function(){
     });
   });
 
+  // Trigger send chat when 'enter' key is pressed while focused on the chat input.
+  $(document).on('keypress', '#chat-input', function(e){
+    if(e.keyCode == 13){
+      $('#chat-send').click();
+    }
+  });
+
   $(document).on('click', '#hide-chat', function(){
     $("#hide-chat").hide();
     $('#destinatary').val('');
