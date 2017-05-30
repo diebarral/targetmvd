@@ -39,10 +39,6 @@ $(document).ready(function(){
     $('#destinatary').val($(this).data('user-id'));
     $('#match').val(match_id);
 
-    var unread_count_for_conversation = parseInt($(this).find('td > div').html());
-    modify_global_count(unread_count_for_conversation);
-    $(this).find('td > div').html('').hide();
-
     $.getJSON('/matches/get_messages', { id: match_id }, function(data) {
       $("#conversation-container").html(data.form);
       $('#matches-table-container').hide();
@@ -124,6 +120,7 @@ $(document).ready(function(){
   });
 
   $(document).on('click', '#hide-chat', function(){
+    update_unread_messages_count();
     $("#hide-chat").hide();
     $('#destinatary').val('');
     $('#match').val('');
@@ -131,6 +128,9 @@ $(document).ready(function(){
     $("#conversation-container").hide();
   });
 
+  $(document).on('change', '#update-unread-messages-counts', function(){
+    update_unread_messages_count();
+  });
 });
 
 function initMap() {
@@ -270,14 +270,23 @@ function set_current_target(target) {
   $('#target_radius').val(defaultRadius);
 }
 
-function modify_global_count(unread_count_for_conversation){
-  if(!isNaN(unread_count_for_conversation)) {
-    var global_count = parseInt($('#global-message-count').text().replace(/[^0-9\.]/g, ''), 10);
-    global_count -= unread_count_for_conversation;
-    $('#global-message-count').text('You have ' + global_count + ' unread message(s)');
+function update_unread_messages_count() {
+  $.getJSON('home/unread_messages_count', function(data) {
+    $('#global-message-count span').html(data.global_count);
 
-    if(global_count == 0) {
+    if(data.global_count > 0 && !$('#conversation-icon').hasClass('unread-conversation-badge')) {
+      $('#conversation-icon').addClass('unread-conversation-badge');
+    } else if(data.global_count == 0 && $('#conversation-icon').hasClass('unread-conversation-badge')) {
       $('#conversation-icon').removeClass('unread-conversation-badge');
     }
-  }
+
+    jQuery.each(data.break_down_count, function(i, info){
+      $('#matches-table tr[data-match-id=' + info.match_id + '] .row-badge').html(info.unread);
+      if(info.unread > 0) {
+        $('#matches-table tr[data-match-id=' + info.match_id + '] .row-badge').show();
+      } else {
+        $('#matches-table tr[data-match-id=' + info.match_id + '] .row-badge').hide();
+      }
+    });
+  });
 }

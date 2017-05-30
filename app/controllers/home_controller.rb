@@ -35,4 +35,19 @@ class HomeController < ApplicationController
       format.js
     end
   end
+
+  def unread_messages_count
+    global_count = 0
+    break_down_count = []
+
+    all_matches_for_current_user = Match.for_user(current_user.id)
+    all_matches_for_current_user.each do |match|
+      unread = Message.of_conversation(match.id).unread_for_user(current_user.id).count
+      global_count += unread
+      break_down_count.push({ match_id: match.id, unread: unread })
+    end
+
+    render json: { global_count: global_count, break_down_count: break_down_count }
+
+  end
 end
