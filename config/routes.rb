@@ -2,6 +2,7 @@ Rails.application.routes.draw do
 
   post 'messages/create'
   get 'matches/get_messages'
+  post 'matches/mark_as_read'
   get 'notifications/index'
 
   mount ActionCable.server => '/cable'

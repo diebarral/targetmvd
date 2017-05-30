@@ -1,4 +1,14 @@
 <div class="dropdown">
+  <button class="dropdown-button">
+    <span><i id='conversation-icon' class="<%= conversation_icon_classes(@has_unread_messages) %>"><%= image_tag("conversation-bubble.png", :class => "navbar-icon")%></i></span>
+  </button>
+  <span></span>
+  <div class="dropdown-content">
+    <a id='global-message-count' class="unread-text">You have <%= @global_unread_messages_count %> unread message(s)</a>
+  </div>
+</div>
+
+<div class="dropdown">
   <button class="dropdown-button"><%= current_user.name %></button>
   <span></span>
   <div class="dropdown-content">

@@ -3,7 +3,6 @@ var existsCurrentTarget = false;
 var defaultRadius = 100;
 
 $(document).ready(function(){
-
   // Only numbers in radius field validation.
   $("#index-dynamic-container").on('keydown', "#target_radius", function (e) {
     validate_numeric_input(e);
@@ -39,6 +38,11 @@ $(document).ready(function(){
     var match_id = $(this).data('match-id');
     $('#destinatary').val($(this).data('user-id'));
     $('#match').val(match_id);
+
+    var unread_count_for_conversation = parseInt($(this).find('td > div').html());
+    modify_global_count(unread_count_for_conversation);
+    $(this).find('td > div').html('').hide();
+
     $.getJSON('/matches/get_messages', { id: match_id }, function(data) {
       $("#conversation-container").html(data.form);
       $('#matches-table-container').hide();
@@ -264,4 +268,16 @@ function set_current_target(target) {
   $('#target_latitude').val(target.getCenter().lat());
   $('#target_longitude').val(target.getCenter().lng());
   $('#target_radius').val(defaultRadius);
+}
+
+function modify_global_count(unread_count_for_conversation){
+  if(!isNaN(unread_count_for_conversation)) {
+    var global_count = parseInt($('#global-message-count').text().replace(/[^0-9\.]/g, ''), 10);
+    global_count -= unread_count_for_conversation;
+    $('#global-message-count').text('You have ' + global_count + ' unread message(s)');
+
+    if(global_count == 0) {
+      $('#conversation-icon').removeClass('unread-conversation-badge');
+    }
+  }
 }

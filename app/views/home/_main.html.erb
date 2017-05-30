@@ -1,15 +1,17 @@
 <% if matches.any? %>
   <div id='matches-table-container' class="matches-table-container">
     <h3 class="target-mvd">
-      Matches
+      Chat
     </h3>
     <table id='matches-table' class="matches-table">
-      <th>Start a conversation with:</th>
+      <th data-match-id=0 >Start a conversation with:</th>
       <% @matches.each do |match| %>
         <tr class="matches-table-row" data-match-id=<%= match[:id] %> data-user-id=<%= match[:user_id] %> >
           <td>
             <%= match[:user_name] %> about <%= match[:topic] %>
+            <div class="row-badge" style="display: <%= unread_count_visibility(match[:unread]) %>"><%= match[:unread] %></div>
           </td>
+
         </tr>
       <% end %>
     </table>
