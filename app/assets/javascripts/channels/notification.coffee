@@ -13,10 +13,14 @@ App.notification = App.cable.subscriptions.create "NotificationChannel",
 
     else if notification.code == 'message'
       match_id = parseInt($('#match').val())
+
       if match_id == notification.message.match_id
         $('#conversation-body').append(notification.message.html_element)
         $("#conversation-container").animate({ scrollTop: $("#conversation-container")[0].scrollHeight}, 1000);
+        $.post({ url: '/matches/mark_as_read', data: { id: notification.message.match_id }});
       else
-        # Increment unread messages count
+        $('#update-unread-messages-counts').change();
+
+
 
 
