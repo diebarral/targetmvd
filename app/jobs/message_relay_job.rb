@@ -3,6 +3,7 @@ class MessageRelayJob < ApplicationJob
 
   def perform(message)
     begin
+      puts(message)
       ActionCable.server.broadcast "notification_channel_#{message.destinatary}", message: { match_id: message.match_id, html_element: render_message(message.text) }, code: 'message'
     rescue Exception => e
       puts('Error while broadcasting message: ' + e.to_s)
