@@ -1,0 +1,76 @@
+.target-mvd {
+  font-family: OpenSans, sans-serif;
+  font-size: 20px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: 3px;
+  color: #000000;
+}
+
+.target-mvd .text-style-1 {
+  letter-spacing: normal;
+}
+
+.welcome-info-header {
+  font-family: OpenSans, sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.78;
+  color: #212121;
+}
+
+.welcome-info-text {
+  width: 321px;
+  height: 78px;
+  font-family: OpenSans, sans-serif;
+  font-size: 14px;
+  line-height: 1.86;
+  color: #000000;
+  display: inline-block;
+}
+
+.forgot-password-link {
+  width: 135.5px;
+  height: 15px;
+  font-family: OpenSans, sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  text-align: center;
+  color: #000000;
+  text-decoration: none;
+}
+
+.forgot-password-link:hover {
+  background-color: transparent;
+  color: #000000;
+}
+
+.connect-with-facebook {
+  text-decoration: none;
+  background-color: transparent;
+  width: 210px;
+  height: 17px;
+  font-family: OpenSans, sans-serif;
+  font-size: 12px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: 2.4px;
+  text-align: center;
+  color: #000000;
+}
+
+.connect-with-facebook:hover {
+  background-color: transparent;
+  color: #000000;
+}
+
+.line {
+  width: 121px;
+  height: 0.5px;
+  border: solid 0.5px #000000;
+  color: #000000;
+}

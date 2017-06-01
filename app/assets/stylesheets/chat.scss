@@ -1,0 +1,96 @@
+.conversation-container {
+  width: 100%;
+  height: calc( 100% - 130px);
+  border-bottom: solid 0.5px #000000;
+  overflow: auto;
+}
+
+.conversation-body {
+  overflow: auto;
+}
+
+.chat-header {
+  border-bottom: solid 0.5px #000000;
+}
+
+.conversation-destinatary {
+  height: 19px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 2.1px;
+  text-align: center;
+  font-family: OpenSans, sans-serif;
+
+}
+
+.conversation-topic {
+  color: #7d7d7d;
+  font-family: OpenSans, sans-serif;
+  font-size: 13px;
+  text-transform: lowercase;
+  text-align: center;
+  vertical-align: center;
+}
+
+.area{
+  margin:0 auto;
+  width: 400px;
+  display:table;
+  padding:5px;
+  border-radius:5px;
+  margin-bottom:10px;
+}
+
+.text {
+  font-family: OpenSans, sans-serif;
+  font-size: 13px;
+  line-height: 30px;
+  width:300px;
+  border:1px solid #f0f0f0;
+  margin-top:10px;
+  border-radius:5px;
+  padding:5px 15px 5px 15px;
+
+}
+
+.received{
+  float: left;
+  background-color: #f4f4f4;
+  text-align: left;
+}
+
+.sent{
+  float: right;
+  text-align: right;
+  background-color: rgba(239, 197, 55, 0.7);
+}
+
+.message-box {
+  width: 100%;
+  height: auto;
+  font-family: OpenSans, sans-serif;
+  overflow: hidden;
+}
+
+.chat-input {
+  width: 70%;
+  float: left;
+  padding: 10px;
+  border: solid 1px #dcdcdc;
+  transition: box-shadow 0.3s, border 0.3s;
+  border-radius: 3px;
+}
+
+.chat-send {
+  font-family: OpenSans, sans-serif;
+  position: absolute;
+  border: none;
+  background: #30BCF7;
+  border-radius: 3px;
+  color: white;
+  transition: all .2s;
+  cursor: pointer;
+  padding: 10px;
+  border: solid 1px #dcdcdc;
+  transition: box-shadow 0.3s, border 0.3s;
+}
