@@ -1,10 +1,10 @@
 Rails.application.routes.draw do
 
-  post 'messages/create'
   get 'matches/get_messages'
-  post 'matches/mark_as_read'
   get 'notifications/index'
   get 'home/unread_messages_count', as: 'unread_messages_count'
+  post 'matches/mark_as_read'
+  post 'messages/create'
 
   mount ActionCable.server => '/cable'
 

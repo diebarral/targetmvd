@@ -45,7 +45,7 @@ class TargetsController < ApplicationController
         format.html { redirect_to index_home_path, notice: 'Target was successfully created.' }
         format.json { render :show, status: :created, location: @target }
       else
-        format.html { render :new }
+        format.html { render :new, alert: 'An error ocurred while creating the target.' }
         format.json { render json: @target.errors, status: :unprocessable_entity }
       end
     end
@@ -61,7 +61,7 @@ class TargetsController < ApplicationController
         format.html { redirect_to index_home_path, notice: 'Target was successfully updated.' }
         format.json { render :show, status: :ok, location: @target }
       else
-        format.html { render :edit }
+        format.html { render :edit, alert: 'An error ocurred while updating the target.' }
         format.json { render json: @target.errors, status: :unprocessable_entity }
       end
     end

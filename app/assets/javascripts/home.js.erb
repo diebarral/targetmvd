@@ -21,6 +21,10 @@ $(document).ready(function(){
     }
   });
 
+  $('.closebtn').click(function(){
+    $(this).parent().hide();
+  });
+
   // Click on topics table. Background color changes and icon is set to target on map.
   $("#index-dynamic-container").on('click', "#topic-table > tbody > tr", function () {
 
