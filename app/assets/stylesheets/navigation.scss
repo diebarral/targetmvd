@@ -1,0 +1,84 @@
+.navbar {
+  background: #30BCF7;
+  display: inline-block;
+  width: 100%;
+}
+
+.conversation-icon {
+  text-align:center;
+  vertical-align:middle;
+  position: relative;
+}
+
+.unread-conversation-badge:after{
+    content:"";
+    position: absolute;
+    background: rgb(243,211,102);
+    height:0.5rem;
+    width:0.5rem;
+    top: 25%;
+    right:25%;
+    text-align: center;
+    line-height:  2rem;
+    font-size: 5px;
+    border-radius: 50%;
+    color:white;
+    border:1px solid rgb(243,211,102);
+}
+
+.unread-text {
+  font-family: OpenSans, sans-serif;
+  font-size: 14px;
+  line-height: 1.86;
+  color: #000000;
+  display: inline-block;
+}
+
+.dropdown {
+  float: right;
+  position: relative;
+  display: inline-block;
+  background: #30BCF7;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  right: 0px;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  background: white;
+  text-align: center;
+}
+
+
+.dropdown-content a:hover {
+  background-color: #f1f1f1;
+  color: #30BCF7;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+.dropdown:hover .dropbtn {
+    background-color: #3e8e41;
+}
+
+.dropdown-button {
+  background: #30BCF7;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  font-family: OpenSans, sans-serif;
+  letter-spacing: 1.6px;
+}
