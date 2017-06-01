@@ -1,15 +1,22 @@
 <div class="wrapper">
+
   <nav class="navbar">
   <%= render 'layouts/navigation' %>
   </nav>
+  <div class="flash notice" <%= message_visibility(notice) %>>
+    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+    <%= notice %>
+  </div>
+  <div class="flash alert" <%= message_visibility(alert) %>>
+    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+    <%= alert %>
+  </div>
 
   <div class="welcome-container">
-
     <div id='index-dynamic-container' class="index-dynamic-container">
       <%= render partial: 'main', locals: { matches: @matches, target_count: @target_count } %>
     </div>
     <div id='map' class="google-map"></div>
-
   </div>
 
   <div id="notifications-modal" class="modal">
@@ -25,6 +32,7 @@
       </div>
     </div>
   </div>
+
 </div>
 
 
